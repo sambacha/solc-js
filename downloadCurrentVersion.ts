@@ -7,9 +7,10 @@ import * as fs from 'fs';
 import { https } from 'follow-redirects';
 import MemoryStream from 'memorystream';
 import { keccak256 } from 'js-sha3';
-const pkg = require('./package.json');
+const pkg = require('../../package.json');
 
-function getVersionList (cb) {
+// @typeOf (cb: { (list: any): void; (arg0: any): void; }) {
+export function getVersionList (cb) {
   console.log('Retrieving available version list...');
 
   const mem = new MemoryStream(null, { readable: false });
@@ -25,7 +26,7 @@ function getVersionList (cb) {
   });
 }
 
-function downloadBinary (outputName, version, expectedHash) {
+export function downloadBinary (outputName, version, expectedHash) {
   console.log('Downloading version', version);
 
   // Remove if existing
@@ -61,6 +62,8 @@ function downloadBinary (outputName, version, expectedHash) {
 
 console.log('Downloading correct solidity binary...');
 
+// @type list: release[] = { version: string, url: string, hash: string }
+// Get the latest version
 getVersionList(function (list) {
   list = JSON.parse(list);
   const wanted = pkg.version.match(/^(\d+\.\d+\.\d+)$/)[1];

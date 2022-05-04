@@ -1,9 +1,7 @@
-#!/usr/bin/env node
-
 import * as semver from 'semver';
-import solc from './';
+import * as solc from './soljson-default';
 
-const { version: packageVersion } = require('./package.json');
+const { version: packageVersion } = require('./../package.json');
 
 const solcVersion = (solc as any).version();
 

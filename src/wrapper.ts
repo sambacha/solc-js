@@ -1,4 +1,4 @@
-import translate from './translate';
+import * as translate from './translate';
 import { https } from 'follow-redirects';
 import MemoryStream from 'memorystream';
 import assert from 'assert';
@@ -357,4 +357,4 @@ function setupMethods (soljson) {
   };
 }
 
-export = setupMethods;
+export default setupMethods;

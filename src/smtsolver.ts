@@ -26,7 +26,7 @@ const potentialSolvers = [
 
 const solvers = potentialSolvers.filter(solver => commandExistsSync(solver.command));
 
-function solve (query, solver) {
+export function solve (query, solver) {
   if (solver === undefined) {
     if (solvers.length === 0) {
       throw new Error('No SMT solver available. Assertion checking will not be performed.');
@@ -67,7 +67,29 @@ function solve (query, solver) {
   return solverOutput;
 }
 
+//export solve as smtSolver;
+export function availableSolvers () {
+  return solvers.map(solver => solver.name);
+
+}
+export function solverExists (solver) {
+  // @ts-expect-error
+  return solvers.some(solver => solver.name === solver); // eslint-disable-line equals-identity
+}
+
+
+export function smtSolver(arg0: any, arg1: any, smtSolver: any, arg3: any) {
+  throw new Error('Function not implemented.');
+}
+
+
+export default smtSolver;
+
+/** 
 export = {
   smtSolver: solve,
   availableSolvers: solvers
 };
+children
+
+ */

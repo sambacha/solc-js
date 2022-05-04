@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { keccak256 } from 'js-sha3';
-import { isNil, isObject } from './common/helpers';
-import { LibraryAddresses, LinkReferences } from './common/types';
+import { isNil, isObject } from './helpers';
+import { LibraryAddresses, LinkReferences } from './types';
 
 /**
  * Generates a new-style library placeholder from a fully-qualified library name.
@@ -11,7 +11,7 @@ import { LibraryAddresses, LinkReferences } from './common/types';
  *
  * @param fullyQualifiedLibraryName Fully qualified library name.
  */
-function libraryHashPlaceholder (fullyQualifiedLibraryName) {
+export function libraryHashPlaceholder (fullyQualifiedLibraryName) {
   return `$${keccak256(fullyQualifiedLibraryName).slice(0, 34)}$`;
 }
 
@@ -28,7 +28,7 @@ function libraryHashPlaceholder (fullyQualifiedLibraryName) {
  * @param address Address to replace placeholders with. Must be the right length.
  *     It will **not** be padded with zeros if too short.
  */
-function replacePlaceholder (bytecode, label, address) {
+export function replacePlaceholder (bytecode, label, address) {
   // truncate to 36 characters
   const truncatedName = label.slice(0, 36);
   const libLabel = `__${truncatedName.padEnd(36, '_')}__`;
@@ -58,7 +58,7 @@ function replacePlaceholder (bytecode, label, address) {
  * @returns bytecode Hex-encoded bytecode string with placeholders replaced with addresses.
  *    Note that some placeholders may remain in the bytecode if `libraries` does not provide addresses for all of them.
  */
-function linkBytecode (bytecode: string, libraries: LibraryAddresses): string {
+export function linkBytecode (bytecode: string, libraries: LibraryAddresses): string {
   assert(typeof bytecode === 'string');
   assert(typeof libraries === 'object');
 
@@ -137,7 +137,7 @@ function linkBytecode (bytecode: string, libraries: LibraryAddresses): string {
  * offsets and lengths refer to the *binary* (not hex-encoded) bytecode, just
  * like in `evm.bytecode.linkReferences`.
  */
-function findLinkReferences (bytecode: string): LinkReferences {
+export function findLinkReferences (bytecode: string): LinkReferences {
   assert(typeof bytecode === 'string');
 
   // find 40 bytes in the pattern of __...<36 digits>...__
@@ -173,9 +173,11 @@ function findLinkReferences (bytecode: string): LinkReferences {
   }
 
   return linkReferences;
-}
+};
 
+/*
 export = {
   linkBytecode,
   findLinkReferences
 };
+*/

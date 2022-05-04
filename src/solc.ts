@@ -1,12 +1,11 @@
-#!/usr/bin/env node
-
 import * as commander from 'commander';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
-import solc from './index';
-import smtchecker from './smtchecker';
-import smtsolver from './smtsolver';
+import * as solc from './soljson-default';
+import version from './soljson-default';
+import * as smtchecker from './smtchecker';
+import * as smtsolver from './smtsolver';
 
 // hold on to any exception handlers that existed prior to this script running, we'll be adding them back at the end
 const originalUncaughtExceptionListeners = process.listeners('uncaughtException');
@@ -24,7 +23,7 @@ const commanderParseInt = function (value) {
 };
 
 program.name('solcjs');
-program.version(solc.version());
+program.version(version());
 program
   .option('--version', 'Show version and exit.')
   .option('--optimize', 'Enable bytecode optimizer.', false)
@@ -120,6 +119,7 @@ function reformatJsonIfRequested (inputJson) {
   return (program.prettyJson ? toFormattedJson(JSON.parse(inputJson)) : inputJson);
 }
 
+// 
 let callbacks;
 if (options.basePath || !options.standardJson) { callbacks = { import: readFileCallback }; }
 
@@ -254,5 +254,5 @@ originalUncaughtExceptionListeners.forEach(function (listener) {
 });
 
 if (hasError) {
-  process.exit(1);
+  process.exit(127);
 }

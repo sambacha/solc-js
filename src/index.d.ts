@@ -1,0 +1,1 @@
+declare module soljson { export var version: () => string; }

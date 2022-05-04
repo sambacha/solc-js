@@ -1,6 +1,11 @@
 import * as semver from 'semver';
-
-function update (compilerVersion, abi) {
+/**
+ *  A function that takes a compilerVersion and an abi and returns an abi. 
+ * @param compilerVersion 
+ * @param abi 
+ * @returns 
+ */
+export function update (compilerVersion: string | semver.SemVer, abi: any[]) {
   let hasConstructor = false;
   let hasFallback = false;
 
@@ -56,8 +61,4 @@ function update (compilerVersion, abi) {
   }
 
   return abi;
-}
-
-export = {
-  update
 };

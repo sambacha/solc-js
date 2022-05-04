@@ -1,4 +1,4 @@
-import linker from './linker';
+import * as linker from './linker';
 
 /// Translate old style version numbers to semver.
 /// Old style: 0.3.6-3fc68da5/Release-Emscripten/clang
@@ -9,7 +9,7 @@ import linker from './linker';
 ///            0.1.2-5c3bfd4b*/.-/clang/int
 ///            0.1.1-6ff4cd6b/RelWithDebInfo-Emscripten/clang/int
 /// New style: 0.4.5+commit.b318366e.Emscripten.clang
-function versionToSemver (version) {
+export function versionToSemver (version) {
   // FIXME: parse more detail, but this is a good start
   const parsed = version.match(/^([0-9]+\.[0-9]+\.[0-9]+)-([0-9a-f]{8})[/*].*$/);
   if (parsed) {
@@ -63,7 +63,7 @@ function translateGasEstimates (gasEstimates) {
   return gasEstimatesTranslated;
 }
 
-function translateJsonCompilerOutput (output, libraries) {
+export function translateJsonCompilerOutput (output, libraries) {
   const ret: any = {};
 
   ret.errors = [];
@@ -160,7 +160,7 @@ function escapeString (text) {
 }
 
 // 'asm' can be an object or a string
-function formatAssemblyText (asm, prefix, source) {
+export function formatAssemblyText (asm, prefix, source) {
   if (typeof asm === 'string' || asm === null || asm === undefined) {
     return prefix + (asm || '') + '\n';
   }
@@ -193,8 +193,11 @@ function prettyPrintLegacyAssemblyJSON (assembly, source) {
   return formatAssemblyText(assembly, '', source);
 }
 
+/* 
 export = {
   versionToSemver,
   translateJsonCompilerOutput,
   prettyPrintLegacyAssemblyJSON
 };
+
+*/

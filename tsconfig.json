@@ -1,8 +1,17 @@
 {
   // Configuration reference: https://www.typescriptlang.org/tsconfig
   "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
+    "declaration": true,
+    "lib": ["es2020"],
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "pretty": true,
+    "sourceMap": true,
+    "rootDir": ".",
+    "target": "ES2020",
+    "module": "ESNext",
     "resolveJsonModule": true,
     // This is needed for backwards-compatibility, to keep imports of the form `wrapper = require('solc/wrapper)`
     // working like they did before the TypeScript migration.
@@ -20,13 +29,15 @@
     "noImplicitAny": false
   },
   "include": [
-    "**/*.js",
-    "**/*.ts",
-    "**/*.json"
+    "src/**/*.js",
+    "src/**/*.ts",
+    "src/**/*.json"
   ],
   "exclude": [
+    "test",
     "coverage",
-    "dist"
+    "dist",
+    "node_modules"
   ],
   "ts-node": {
     "transpileOnly": true
